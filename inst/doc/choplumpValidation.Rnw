@@ -1,0 +1,226 @@
+%\documentclass{simauth}
+\documentclass{article}[12pt]
+%\documentclass{biometrics}[12pt]
+%\topmargin -.65in
+%\textheight 9in
+\topmargin -.5in
+\textheight 8.25in
+\oddsidemargin 0in
+\evensidemargin 0in
+\textwidth 6.5in
+\parindent 3em
+%\pagestyle{empty}
+
+\usepackage{epsfig}
+
+
+\newcommand{\pname}{\texttt{hbim}}
+
+
+% \VignetteIndexEntry{Validation of choplump R package}
+% \VignetteKeyword{validation}
+% \VignetteKeyword{htest}
+
+<<PreliminaryCalculations,echo=FALSE,hide=TRUE>>=
+#source("H:\\main\\methods\\choplump\\r\\chop.functions.R")
+library(choplump)
+SEED<-1:200
+@
+
+\begin{document}
+\baselineskip 12pt
+
+
+
+
+{\Large Validation of choplump R package}
+
+by Michael P. Fay \\
+\today
+
+
+
+\section*{Summary}
+
+This document outlines several ways we have tested the choplump R package. 
+
+\begin{itemize}
+\item In Section~\ref{sec-exact.two.ways} we calculate the exact choplump tests in two ways. One method is a crude 
+and slower method that is easier to program, and the other method is the faster method which is used for the final
+\texttt{choplump} function. We test both methods with small sample sizes and get the same answers. 
+\item In Section~\ref{sec-wilcox.compare} we show that when we use the methods outlined in the \texttt{computation}  
+vignette to calculate the usual Wilcoxon Rank sum test (but with many tied zeros), we obtain the same answer
+as from the previously developed \texttt{coin} package (Hothorn,  Hornik,
+  van de Wiel and  Zeileis, 2006).
+\item In Section~\ref{sec-approx.vs.exact} we show that the asymptotic approximation to the p-value 
+closely matches the exact p-value for sample sizes as small as $10$ 
+total non-zero responses in both groups. 
+\end{itemize}
+
+
+
+\section{Calculate Exact Test Two Ways}
+\label{sec-exact.two.ways}
+
+In this section, we introduce the \texttt{choplumpGeneral} function which is a slow version of the \texttt{choplump} test. 
+It's structure closely matches the general description of the choplump test.  The key to this function is the \texttt{chooseMatrix} 
+function. The call \texttt{chooseMatrix(N,M)} produces a \texttt{choose(N,M)} by $N$ matrix with each row a different permutation of 
+ $M$ ones and $N-M$ zeros. 
+ 
+For example:
+<<>>=
+chooseMatrix(5,2)
+@
+
+Here is the general chopping function and the general choplump function:
+<<echo=TRUE>>=
+chopGeneral
+choplumpGeneral
+@
+
+Now we calculate some p-values from some small data sets  using both the \texttt{choplumpGeneral} function and the final \texttt{choplump} 
+function. We show that both give the same answers.
+
+<<>>=
+make.data<-function(N,M,SEED){
+    set.seed(SEED)
+    Z<-rep(0,N)
+    Z[sample(1:N,N/2,replace=FALSE)]<-1
+    test<-data.frame(W=c(rep(0,N-M),abs(rnorm(M))),Z=Z)
+    return(test)
+}
+
+test<-make.data(10,6,SEED[1])
+test
+choplumpGeneral(test$W,test$Z,testfunc=testfunc.wilcox.ties.general)
+cout<-choplump(W~Z,data=test,use.ranks=TRUE,exact=TRUE)
+cout
+cout$p.values
+@
+
+Now we show the equivalence of the two functions for the difference in means test. Note to match directions we use the 
+negative of the \texttt{TDiM} function. 
+
+<<>>= 
+testfunc.DiM.general<-function(d){
+    -TDiM(d$W,d$Z)
+}
+choplumpGeneral(test$W,test$Z,testfunc=testfunc.DiM.general)
+choplump(W~Z,data=test,use.ranks=FALSE,exact=TRUE)$p.values
+@
+
+
+\section{Calculate Exact Wilcoxon Rank sum test using Similar methods}
+\label{sec-wilcox.compare}
+
+In this section we show how we can use similar methods to those used in the choplump package 
+to calculate either exact or approximate Wilcoxon rank sum test p-values.
+Then we can check out that the exact  p-values match those output from \texttt{wilcox}\_\texttt{test} in the \texttt{coin}
+package. In the process, we show how our algorithm can be faster in some cases when there are very many zeros.  
+
+<<echo=TRUE>>=
+library(coin)
+test<-make.data(20,12,SEED[1])
+test
+wilcox.manyzeros.exact(W=test$W,Z=test$Z)
+test2<-data.frame(W=test$W,Z=as.factor(test$Z))
+wilcox_test(W~Z,data=test2,distribution="exact",alternative="less")
+wilcox_test(W~Z,data=test2,distribution="exact",alternative="greater")
+wilcox_test(W~Z,data=test2,distribution="exact",alternative="two.sided")
+
+test<-make.data(1000,12,SEED[2])
+t0<-proc.time()
+wilcox.manyzeros.exact(W=test$W,Z=test$Z)
+## time for our algorithm
+proc.time()-t0
+test2<-data.frame(W=test$W,Z=as.factor(test$Z))
+t1<-proc.time()
+wilcox_test(W~Z,data=test2,distribution="exact",alternative="two.sided")
+## time for coin algorithm
+proc.time()-t1
+@
+
+
+\section{Compare Asymptotic Approximation to Exact Calculation} 
+\label{sec-approx.vs.exact}
+
+To see how well the approximation performs, 
+we simulate 200 data sets with $N=100$ and $M=10$. 
+For this small sample size we can calculate the exact p-values. 
+We randomly assign $N/2$ of the $Z_i$ values to 1 and the others are 0. 
+We take pseudo-random numbers for the $X_i$, where  $X_i = |X_i^{\dagger}|$ and $X_i^{\dagger} \sim N(0,1)$.
+We plot the bias (approximate p-value minus exact p-value) by the exact p-values in Figure~\ref{fig:approx.vs.exact}, together with 
+the 95\% interquantile ranges of the bias.  
+<<echo=FALSE>>=
+test<-function(N,M,SEED,Use.Ranks=TRUE){
+    out.approx<-out.exact<-rep(NA,length(SEED))
+    for (i in 1:length(SEED)){
+        set.seed(SEED[i])
+        test<-make.data(N,M,SEED[i])
+        out.approx[i]<-choplump(W~Z,data=test,use.ranks=Use.Ranks,method="approx")$p.values[1]
+        out.exact[i]<-choplump(W~Z,data=test,use.ranks=Use.Ranks,method="exact",printNumCalcs=FALSE)$p.values[1]
+    }
+    out<-data.frame(plower.approx=out.approx,plower.exact=out.exact)
+    return(out)
+}
+tout.ranks<-test(100,10,1:200,Use.Ranks=TRUE)
+#tout.ranks
+tout.noranks<-test(100,10,1:200,Use.Ranks=FALSE)
+#tout.noranks
+qrank<-quantile(tout.ranks[,1]-tout.ranks[,2],probs=c(.025,.975))
+qnor<-quantile(tout.noranks[,1]-tout.noranks[,2],probs=c(.025,.975))
+@
+We see that even when $M$ is as small as $10$, 
+the approximation does fairly well, with the 95\% interquantile range of the bias for the rank
+ tests equal to (\Sexpr{round(qrank[1],4)},\Sexpr{round(qrank[2],4)}), and the similar statistic for the 
+difference in means tests equal to (\Sexpr{round(qnor[1],4)},\Sexpr{round(qnor[2],4)}).
+
+
+
+\begin{figure}
+\caption{Comparison of Asymptotic Approximation and Exact P-values, Circles (solid lines) are 
+Rank Tests and Triangles (dotted lines) are Difference in Means Tests.
+Lines enclose middle 95\% of bias (asymptotic-exact).
+ \label{fig:approx.vs.exact} }
+<<figureApproxVsExact,fig=TRUE,echo=FALSE>>=
+#plot(tout.ranks[,1],tout.ranks[,2],xlim=c(0,1),ylim=c(0,1),xlab="Approximate p-value",ylab="Exact p-value",pch=1,cex=1.2)
+#points(tout.noranks[,1],tout.noranks[,2],pch=15,cex=1.2)
+#lines(c(0,1),c(0,1),lty=2,col="gray")
+
+plot(c(tout.ranks[,2],tout.noranks[,2]),c(tout.noranks[,1]-tout.noranks[,2],tout.ranks[,1]-tout.ranks[,2]),xlim=c(0,1),type="n",
+    ylab="(Approximate p-value) - (Exact p-value)",xlab="Exact p-value")
+points(tout.ranks[,2],tout.ranks[,1]-tout.ranks[,2],pch=1,cex=1.0)
+points(tout.noranks[,2],tout.noranks[,1]-tout.noranks[,2],pch=2,cex=1.0)
+
+lines(c(-1,2),rep(qrank[1],2),lty=1,col="gray")
+lines(c(-1,2),rep(qrank[2],2),lty=1,col="gray")
+lines(c(-1,2),rep(qnor[1],2),lty=2,col="gray")
+lines(c(-1,2),rep(qnor[2],2),lty=2,col="gray")
+
+
+#plot(c(.5*tout.ranks[,2]+.5*tout.ranks[,1],.5*tout.noranks[,2]+.5*tout.noranks[,1]),c(tout.noranks[,1]-tout.noranks[,2],tout.ranks[,1]-tout.ranks[,2]),xlim=c(0,1),type="n",ylab="Approximate p value - Exact p value",xlab="Average of Approimate and Exact p value")
+#points(.5*tout.ranks[,2]+.5*tout.ranks[,1],tout.ranks[,1]-tout.ranks[,2],pch=1,cex=1.2)
+#points(.5*tout.noranks[,2]+.5*tout.noranks[,1],tout.noranks[,1]-tout.noranks[,2],pch=2,cex=1.2)
+#qrank<-quantile(tout.ranks[,1]-tout.ranks[,2],probs=c(.025,.975))
+#qnor<-quantile(tout.noranks[,1]-tout.noranks[,2],probs=c(.025,.975))
+#lines(c(-1,2),rep(qrank[1],2),lty=1,col="gray")
+#lines(c(-1,2),rep(qrank[2],2),lty=1,col="gray")
+#lines(c(-1,2),rep(qnor[1],2),lty=2,col="gray")
+#lines(c(-1,2),rep(qnor[2],2),lty=2,col="gray")
+
+
+@
+\end{figure}
+
+
+\section*{References}
+
+\begin{description}
+\item  Torsten Hothorn, Kurt Hornik, Mark A.
+  van de Wiel and Achim Zeileis (2006). A
+  Lego System for Conditional Inference.
+  {\it The American Statistician} {\bf 60:} 
+  257-263.
+  
+\end{description}
+\end{document}

@@ -1,0 +1,22 @@
+
+export(chooseMatrix,
+    chop,
+    chopGeneral,
+    choplump,
+    choplumpApprox,
+    choplumpExact,
+    choplumpExactMC,
+    choplumpGeneral,
+    cm.compact,
+    methodRule1,
+    Qh.times.dhyper,
+    TDiM,
+    testfunc.DiM,
+    testfunc.wilcox.general,
+    testfunc.wilcox,
+    testfunc.wilcox.ties.general,
+    testfunc.wilcox.ties,
+    wilcox.manyzeros.exact)       
+
+S3method(choplump, default)
+S3method(choplump, formula)
