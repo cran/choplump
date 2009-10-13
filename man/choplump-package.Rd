@@ -12,8 +12,8 @@ more powerful than simpler permutation tests. Exact and approximation methods ar
 \tabular{ll}{
 Package: \tab choplump\cr
 Type: \tab Package\cr
-Version: \tab 0.9-1\cr
-Date: \tab 2007-08-06\cr
+Version: \tab 1.0\cr
+Date: \tab 2009-10-13\cr
 License: \tab GPL\cr
 }
 See example below. There is also two vignettes. The vignette computation 
@@ -26,7 +26,8 @@ Michael P. Fay
 
 Maintainer: M.P. Fay <mfay@niaid.nih.gov>
 }
-\references{ Follmann, DA, Fay, MP, and Proschan, MA. ''Chop-lump tests for Vaccine trials'' (unpublished manuscript, see /doc/choplump.pdf)}
+\references{ Follmann, DA, Fay, MP, and Proschan, MA. (2009) ''Chop-lump tests for Vaccine trials'' Biometrics 65: 885-893.
+(see /doc/choplump.pdf)}
 \keyword{ package }
 %\seealso{}
 \examples{

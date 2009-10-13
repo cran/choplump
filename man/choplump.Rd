@@ -19,7 +19,7 @@ choplump(x, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-\item{x}{numeric vector of responses in first group. Should have some zeros and the rest positive.}
+\item{x}{a numeric vector of responses in first group, or a formula. Should have some zeros and the rest positive.}
   \item{y}{numeric vector of responses in second group}
   \item{alternative}{a character string specifying the alternative hypothesis, must be one of "two.sided"
 (default), "greater" or "less".}
@@ -49,9 +49,9 @@ is a formal permutation test (in other words for each permutation, the chopping 
 nominal significance level either exactly (for exact methods) or approximately (for the approximate method).
 
 There are a choice of 3 different methods to calculate the p-values: 
-\item{approx}{an approximation method, see vignette("choplumpComputation")}
-\item{exact}{an exact method, see vignette("choplumpComputation")}
-\item{exactMC}{exact method using Monte Carlo resampling with \code{nMC} resamples.}
+approx, an approximation method, see vignette("choplumpComputation");
+exact, an exact method, see vignette("choplumpComputation");
+exactMC, exact method using Monte Carlo resampling with \code{nMC} resamples.
 
 The associated functions for the above methods (\code{choplumpApprox}, \code{choplumpExact},
 \code{choplumpExactMC}), are internal and not to be called directly. 
@@ -72,7 +72,8 @@ A htest object, a list with elements
   \item{METHOD}{a character vector describing the test}
   \item{data.name}{a character vector describing the two groups}
 }
-\references{ Follmann, DA, Fay, MP, and Proschan, MA. ''Chop-lump tests for Vaccine trials'' (unpublished manuscript, see /doc/choplump.pdf)}
+\references{ Follmann, DA, Fay, MP, and Proschan, MA. (2009) ''Chop-lump tests for Vaccine trials'' Biometrics 65: 885-893.
+(see /doc/choplump.pdf)}
 \author{M.P. Fay}
 %\note{ ~~further notes~~ ~Make other sections like Warning with \section{Warning }{....} ~}
 %\seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }

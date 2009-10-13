@@ -25,9 +25,8 @@ cm.compact(n0, n1, M)
 choplumpExact(W, Z, use.ranks = TRUE)
 choplumpExactMC(W, Z, use.ranks = TRUE, nMC=10^4-1, seed=1234321)
 choplumpApprox(W, Z, use.ranks = TRUE)
-choplump.formula(formula, data, subset, na.action, ...)
 chooseMatrix(n, m)
-chop(ZM, in.n1=n1, in.n0=n0, in.M=M)
+chop(ZM, in.n1, in.n0, in.M)
 }
 %- maybe also 'usage' for other objects documented here.
 %\arguments{}

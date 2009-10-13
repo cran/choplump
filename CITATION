@@ -1,0 +1,17 @@
+citHeader("To cite choplump in publications use:")
+
+citEntry(entry="Article",
+  title        = "Chop-Lump Tests for Vaccine Trials",
+  author       = personList(as.person("Dean Follmann"),
+		   as.person("Michael P. Fay"),
+		   as.person("Michael Proschan")),
+  journal      = "Biometrics",
+  year         = "2009",
+  volume       = "65",  
+  pages        = "885--893",
+  
+  textVersion  =
+  paste("Follmann, D, Fay, M.P., Proschan, M. (2009). Chop-lump tests for vaccine trials. Biometrics 65: 885-893."),
+  header = ""
+)
+

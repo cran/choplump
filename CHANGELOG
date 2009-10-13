@@ -1,0 +1,6 @@
+Changes: 
+
+Version 1.0 (only minor changes, none should change any results)
+  - put in final reference to Biometrics paper
+  - fix .Rd files so no warnings
+  

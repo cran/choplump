@@ -1,5 +1,5 @@
 `chop` <-
-function(ZM,in.n1=n1,in.n0=n0,in.M=M){
+function(ZM,in.n1,in.n0,in.M){
     m0<-length(ZM[ZM==0])
     m1<-in.M-m0
     k0<-in.n0-m0
