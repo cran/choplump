@@ -1,4 +1,5 @@
-Changes: 
+Version 1.0-0.1 (very minor change)
+  - move CITATION file so that works using citation()
 
 Version 1.0 (only minor changes, none should change any results)
   - put in final reference to Biometrics paper

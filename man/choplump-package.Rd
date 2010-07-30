@@ -12,8 +12,8 @@ more powerful than simpler permutation tests. Exact and approximation methods ar
 \tabular{ll}{
 Package: \tab choplump\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2009-10-13\cr
+Version: \tab 1.0-0.1\cr
+Date: \tab 2010-07-30\cr
 License: \tab GPL\cr
 }
 See example below. There is also two vignettes. The vignette computation 
