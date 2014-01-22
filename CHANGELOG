@@ -1,3 +1,7 @@
+
+Version 1.0-0.3 (very minor change)
+  - move vignettes to the vignettes directory
+
 Version 1.0-0.2 (very minor change)
   - add coin suggests so that vignette will run. Required by 2.15.0.
 
