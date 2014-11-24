@@ -1,5 +1,5 @@
-6673fcfb267f3e35fb7208a1edef137c *CHANGELOG
-3125b9e5466745a856c8114db76d796f *DESCRIPTION
+70f1ccf215afee0ccc15fb9b3930c2b4 *CHANGELOG
+c9944d46dd3248eb534cd87edfbf10f4 *DESCRIPTION
 030aabd593272eb809d73f135237cfe2 *NAMESPACE
 2ff72408a88c1ac6ed1af045e97747d0 *R/Qh.times.dhyper.R
 619f9430d4ad85303f5bd80fe6c9cd3d *R/TDiM.R
@@ -21,13 +21,13 @@ c68b6017dc8f56802c61022184916998 *R/methodRule1.R
 eb1c985867f966298773635883f0fdd6 *R/testfunc.wilcox.ties.R
 64fe33a65eca94d3a1b5d08e6b79bd50 *R/testfunc.wilcox.ties.general.R
 345a39a8c579167c9f4ebef816c0e151 *R/wilcox.manyzeros.exact.R
-45df9a66eb04f5e2c59cb0da3ee702c2 *build/vignette.rds
+66cd1f58ad9b34ff4d950f4be00544d2 *build/vignette.rds
 bc732181c0600d4578ef0fd06653d442 *inst/CITATION
-fb4b9c34afceef1064076c60853eeddf *inst/doc/choplump.pdf
+0220cbe639b2ef612f433741b5ff7925 *inst/doc/choplump.pdf
 bc1511fb02fbf49c5810107bfba6eb53 *inst/doc/choplumpComputation.pdf
 4bce4d2a2e95acf778113ff75600798b *inst/doc/choplumpValidation.R
 c9b8f3da3e6ec6fc4e9752084ac00750 *inst/doc/choplumpValidation.Rnw
-d63996f9cfa6164aa8ec2c710158fa7c *inst/doc/choplumpValidation.pdf
+19a75e98edfad71f763069d60e5a812a *inst/doc/choplumpValidation.pdf
 59aec71a539d453705391947bdc7a65e *man/chooseMatrix.Rd
 4a467771fa99bfd3620dae5cfd72f2c4 *man/choplump-internal.Rd
 697d9f1d699d52013037d2284b85231c *man/choplump-package.Rd
@@ -35,6 +35,4 @@ ead15ed8c19e2450e53c71c5df2eb158 *man/choplump.Rd
 8fb0db1dd50a87ccbbf1d697baa01846 *man/choplumpGeneral.Rd
 114ff594b678960aae285070f88f00ba *man/methodRule1.Rd
 cfe50afacd7d3c042052aff8536d6500 *man/wilcox.manyzeros.exact.Rd
-536f9e24937f82741c1e9654223a4a44 *vignettes/Rplots.pdf
-bbfd5b2ef10bb0d499e1e6b2ea8143e0 *vignettes/Rplots.ps
 c9b8f3da3e6ec6fc4e9752084ac00750 *vignettes/choplumpValidation.Rnw

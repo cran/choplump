@@ -1,4 +1,6 @@
-
+Version 1.0-0.4 (very minor change)
+  - remove extra pdf from vignettes directory
+ 
 Version 1.0-0.3 (very minor change)
   - move vignettes to the vignettes directory
 
