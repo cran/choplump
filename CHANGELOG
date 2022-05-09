@@ -1,3 +1,9 @@
+Version 1.1 (minor change)
+  - 
+
+Version 1.0-0.5 (minor change)
+  - update NAMESPACE to import even from packages included in R distribution
+
 Version 1.0-0.4 (very minor change)
   - remove extra pdf from vignettes directory
  

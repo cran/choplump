@@ -3,7 +3,7 @@
 \alias{choplump.default}
 \alias{choplump.formula}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Choplump test}
+\title{Choplump Test}
 \description{
 The choplump test is a two-sample permutation test, that is used when there are many responses 
 that are zero with some positive.  }

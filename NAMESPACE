@@ -1,4 +1,7 @@
 
+importFrom("stats", "var", "pnorm", "dhyper", "sd", "terms")
+importFrom("utils", "flush.console")
+
 
 export(chooseMatrix,
     chop,

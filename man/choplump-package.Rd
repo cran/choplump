@@ -2,7 +2,7 @@
 \alias{choplump-package}
 \docType{package}
 \title{
-Choplump test package
+Permutation Test for Some Positive and Many Zero Responses  
 }
 \description{
 This package has basically one important function, \code{\link{choplump}} for performing the choplump test,
@@ -12,8 +12,8 @@ more powerful than simpler permutation tests. Exact and approximation methods ar
 \tabular{ll}{
 Package: \tab choplump\cr
 Type: \tab Package\cr
-Version: \tab 1.0-0.1\cr
-Date: \tab 2010-07-30\cr
+Version: \tab 1.1.1\cr
+Date: \tab 2022-05-09\cr
 License: \tab GPL\cr
 }
 See example below. There is also two vignettes. The vignette computation 
@@ -24,7 +24,7 @@ way we have validated the function.
 \author{
 Michael P. Fay
 
-Maintainer: M.P. Fay <mfay@niaid.nih.gov>
+Maintainer: Michael P. Fay <mfay@niaid.nih.gov>
 }
 \references{ Follmann, DA, Fay, MP, and Proschan, MA. (2009) ''Chop-lump tests for Vaccine trials'' Biometrics 65: 885-893.
 (see /doc/choplump.pdf)}
