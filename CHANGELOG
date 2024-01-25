@@ -1,5 +1,9 @@
-Version 1.1 (minor change)
-  - 
+Version 1.1.2 (minor changes)
+  - delete chooseMatrix from choplump-internal.Rd since it has its own .Rd page.
+  - change citEntry to bibentry
+
+Version 1.1.1 (minor change)
+  - (forgot to document that change)
 
 Version 1.0-0.5 (minor change)
   - update NAMESPACE to import even from packages included in R distribution
